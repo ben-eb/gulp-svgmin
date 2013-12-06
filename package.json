@@ -1,0 +1,25 @@
+{
+  "name": "gulp-svgmin",
+  "version": "0.1.0",
+  "description": "Minify SVG files with gulp.",
+  "license": "MIT",
+  "homepage": "https://github.com/ben-eb/gulp-svgmin",
+  "author": {
+    "name": "Ben Briggs",
+    "email": "therealbenbriggs@hotmail.com",
+    "url": "http://beneb.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ben-eb/gulp-svgmin.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "svg"
+  ],
+  "dependencies": {
+    "event-stream": "~3.0.15",
+    "svgo": "~0.4.1"
+  },
+  "main": "index.js"
+}
