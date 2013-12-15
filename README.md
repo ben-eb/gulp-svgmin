@@ -1,12 +1,12 @@
-# gulp-svgmin
+# [gulp](https://github.com/wearefractal/gulp)-svgmin
 
-Minify SVG files with gulp. This plugin is a small wrapper around the excellent SVGO module, which can be found here:
+[![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.png?branch=master)](https://travis-ci.org/ben-eb/gulp-svgmin) [![NPM version](https://badge.fury.io/js/gulp-svgmin.png)](http://badge.fury.io/js/gulp-svgmin) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.png)](https://gemnasium.com/ben-eb/gulp-svgmin)
 
-https://github.com/svg/svgo
+> Minify SVG with [SVGO](https://github.com/svg/svgo).
 
-## Installation
+*This plugin is a small wrapper around the excellent SVGO module; if you have any difficulties with your SVG output it is best to use the [SVGO tracker](https://github.com/svg/svgo/issues).
 
-Install via npm:
+Install via [npm](https://npmjs.org/package/gulp-svgmin):
 
 ```
 npm install gulp-svgmin --save-dev
