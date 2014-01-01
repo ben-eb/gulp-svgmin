@@ -21,8 +21,8 @@
     "svg"
   ],
   "dependencies": {
-    "event-stream": "3.0.20",
-    "svgo": "0.4.2"
+    "svgo": "0.4.2",
+    "map-stream": "0.0.4"
   },
   "devDependencies": {
     "chai": "~1.8.1",
