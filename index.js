@@ -2,10 +2,10 @@
 
 'use strict';
 
-var Transform = require('stream').Transform
-  , BufferStreams = require('bufferstreams')
-  , SVGOptim = require('svgo')
-  , gutil = require('gulp-util');
+var Transform = require('stream').Transform,
+    BufferStreams = require('bufferstreams'),
+    SVGOptim = require('svgo'),
+    gutil = require('gulp-util');
 
 
 // File level transform function
@@ -58,7 +58,7 @@ function minifySVGGulp(plugins) {
     };
 
     return stream;
-};
+}
 
 // Export the file level transform function for other plugins usage
 minifySVGGulp.fileTransform = minifySVGTransform;
