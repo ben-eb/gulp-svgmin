@@ -21,7 +21,7 @@
     "svg"
   ],
   "dependencies": {
-    "svgo": "0.4.2",
+    "svgo": "0.4.3",
     "bufferstreams": "0.0.1",
     "gulp-util": "~2.2.5"
   },
