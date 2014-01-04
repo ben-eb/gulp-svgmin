@@ -1,5 +1,5 @@
 /* jshint node: true */
-/* global describe, it, before, beforeEach, after, afterEach */
+/* global describe, it */
 
 'use strict';
 
@@ -21,27 +21,27 @@ var compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50
 describe('gulp-svgmin in buffer mode', function() {
     it('should minify svg with svgo', function(cb) {
         var stream = svgmin();
-    
+
         stream.on('data', function(data) {
             expect(String(data.contents)).to.equal(compressed);
             cb();
         });
-    
+
         stream.write(new gutil.File({
             contents: new Buffer(raw)
         }));
     });
-    
+
     it('should honor disabling plugins, such as keeping the doctype', function(cb) {
         var stream = svgmin({
             removeDoctype: false
         });
-    
+
         stream.on('data', function(data) {
             expect(String(data.contents)).to.have.string(doctype);
             cb();
         });
-    
+
         stream.write(new gutil.File({
             contents: new Buffer(raw)
         }));
@@ -54,19 +54,19 @@ describe('gulp-svgmin in stream mode', function() {
         var fakeFile = new gutil.File({
             contents: new Stream()
         });
-    
+
         stream.on('data', function(data) {
             data.contents.pipe(es.wait(function(err, data) {
                 expect(data).to.equal(compressed);
                 cb();
             }));
         });
-    
+
         stream.write(fakeFile);
         fakeFile.contents.write(raw);
         fakeFile.contents.end();
     });
-    
+
     it('should honor disabling plugins, such as keeping the doctype', function(cb) {
         var stream = svgmin({
             removeDoctype: false
@@ -74,14 +74,14 @@ describe('gulp-svgmin in stream mode', function() {
         var fakeFile = new gutil.File({
             contents: new Stream()
         });
-    
+
         stream.on('data', function(data) {
             data.contents.pipe(es.wait(function(err, data) {
                 expect(data).to.have.string(doctype);
                 cb();
             }));
         });
-    
+
         stream.write(fakeFile);
         fakeFile.contents.write(raw);
         fakeFile.contents.end();
