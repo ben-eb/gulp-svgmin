@@ -25,14 +25,16 @@ gulp.task('default', function() {
 
 ## Plugins
 
-Optionally, you can disable any [SVGO plugins](https://github.com/svg/svgo/tree/master/plugins) to customise the output. Simply pass an object to `svgmin` with the list of plugins that you would like to disable:
+Optionally, you can disable any [SVGO plugins](https://github.com/svg/svgo/tree/master/plugins) to customise the output. You will need to provide the config in comma separated objects, like the example below.
 
 ```
 gulp.task('default', function() {
     gulp.src('logo.svg')
-        .pipe(svgmin({
+        .pipe(svgmin([{
             removeDoctype: false
-        }))
+        }, {
+            removeComments: false
+        }]))
         .pipe(gulp.dest('./out'));
 });
 ```
