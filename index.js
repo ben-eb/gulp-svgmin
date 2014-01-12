@@ -7,6 +7,7 @@ var Transform = require('stream').Transform,
     SVGOptim = require('svgo'),
     gutil = require('gulp-util');
 
+var PLUGIN_NAME = 'gulp-svgmin';
 
 // File level transform function
 function minifySVGTransform(svgo) {
@@ -19,12 +20,12 @@ function minifySVGTransform(svgo) {
     return function(err, buf, cb) {
 
         // Handle any error
-        if(err) cb(gutil.PluginError('svgmin', err));
+        if(err) cb(gutil.PluginError(PLUGIN_NAME, err));
 
         // Use the buffered content
         svgo.optimize(String(buf), function(result) {
             if (result.error) {
-                cb(gutil.PluginError('svgmin', result.error));
+                cb(gutil.PluginError(PLUGIN_NAME, result.error));
             }
 
             // Bring it back to streams
@@ -40,6 +41,12 @@ function minifySVGGulp(plugins) {
     var svgo = new SVGOptim({ plugins: [plugins] });
 
     stream._transform = function(file, unused, done) {
+        // When null just pass through
+        if(file.isNull()) {
+            stream.push(file); done();
+            return;
+        }
+
         if(file.isStream()) {
             file.contents = file.contents.pipe(
                 new BufferStreams(minifySVGTransform(svgo)));
@@ -48,7 +55,7 @@ function minifySVGGulp(plugins) {
         } else {
             svgo.optimize(String(file.contents), function(result) {
                 if (result.error) {
-                    stream.emit('error', gutil.PluginError('svgmin', result.error));
+                    stream.emit('error', gutil.PluginError(PLUGIN_NAME, result.error));
                 }
                 file.contents = new Buffer(result.data);
                 stream.push(file);
