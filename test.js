@@ -19,111 +19,139 @@ var raw = '<?xml version="1.0" encoding="utf-8"?>' + doctype +
 var compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#ff00"/></svg>';
 
 describe('gulp-svgmin', function() {
-    it('should minify svg with svgo', function(cb) {
-        var stream = svgmin();
 
-        stream.on('data', function(data) {
-            expect(String(data.contents)).to.equal(compressed);
-            cb();
+    describe('with null contents', function() {
+
+        it('should let null files pass through', function(done) {
+
+            var s = svgmin(),
+                n = 0;
+            s.pipe(es.through(function(file) {
+                  expect(file.path).to.equal('bibabelula.md');
+                  expect(file.contents).to.equal(null);
+                  n++;
+              }, function() {
+                  expect(n).to.equal(1);
+                  done();
+              }));
+            s.write(new gutil.File({
+                path: 'bibabelula.md',
+                contents: null
+            }));
+            s.end();
+
         });
-
-        stream.write(new gutil.File({
-            contents: new Buffer(raw)
-        }));
     });
 
-    it('should honor disabling plugins, such as keeping the doctype', function(cb) {
-        var stream = svgmin([{
-            removeDoctype: false
-        }]);
+    describe('in buffer mode', function() {
 
-        stream.on('data', function(data) {
-            expect(String(data.contents)).to.have.string(doctype);
-            cb();
-        });
+        it('should minify svg with svgo', function(cb) {
+            var stream = svgmin();
 
-        stream.write(new gutil.File({
-            contents: new Buffer(raw)
-        }));
-    });
-
-    it('should allow disabling multiple plugins', function(cb) {
-        var stream = svgmin([{
-            removeDoctype: false
-        }, {
-            removeComments: false
-        }]);
-
-        stream.on('data', function(data) {
-            expect(String(data.contents)).to.have.string(doctype).and.to.have.string('test comment');
-            cb();
-        });
-
-        stream.write(new gutil.File({
-            contents: new Buffer(raw)
-        }));
-    });
-});
-
-describe('gulp-svgmin in stream mode', function() {
-    it('should minify svg with svgo', function(cb) {
-        var stream = svgmin();
-        var fakeFile = new gutil.File({
-            contents: new Stream()
-        });
-
-        stream.on('data', function(data) {
-            data.contents.pipe(es.wait(function(err, data) {
-                expect(data).to.equal(compressed);
+            stream.on('data', function(data) {
+                expect(String(data.contents)).to.equal(compressed);
                 cb();
+            });
+
+            stream.write(new gutil.File({
+                contents: new Buffer(raw)
             }));
         });
 
-        stream.write(fakeFile);
-        fakeFile.contents.write(raw);
-        fakeFile.contents.end();
-    });
+        it('should honor disabling plugins, such as keeping the doctype', function(cb) {
+            var stream = svgmin([{
+                removeDoctype: false
+            }]);
 
-    it('should honor disabling plugins, such as keeping the doctype', function(cb) {
-        var stream = svgmin([{
-            removeDoctype: false
-        }]);
-        var fakeFile = new gutil.File({
-            contents: new Stream()
-        });
-
-        stream.on('data', function(data) {
-            data.contents.pipe(es.wait(function(err, data) {
-                expect(data).to.have.string(doctype);
+            stream.on('data', function(data) {
+                expect(String(data.contents)).to.have.string(doctype);
                 cb();
+            });
+
+            stream.write(new gutil.File({
+                contents: new Buffer(raw)
             }));
         });
 
-        stream.write(fakeFile);
-        fakeFile.contents.write(raw);
-        fakeFile.contents.end();
-    });
+        it('should allow disabling multiple plugins', function(cb) {
+            var stream = svgmin([{
+                removeDoctype: false
+            }, {
+                removeComments: false
+            }]);
 
-    it('should allow disabling multiple plugins', function(cb) {
-        var stream = svgmin([{
-            removeDoctype: false
-        }, {
-            removeComments: false
-        }]);
-
-        var fakeFile = new gutil.File({
-            contents: new Stream()
-        });
-
-        stream.on('data', function(data) {
-            data.contents.pipe(es.wait(function(err, data) {
-                expect(data).to.have.string(doctype).and.to.have.string('test comment');
+            stream.on('data', function(data) {
+                expect(String(data.contents)).to.have.string(doctype).and.to.have.string('test comment');
                 cb();
+            });
+
+            stream.write(new gutil.File({
+                contents: new Buffer(raw)
             }));
         });
 
-        stream.write(fakeFile);
-        fakeFile.contents.write(raw);
-        fakeFile.contents.end();
+    });
+
+    describe('stream mode', function() {
+        it('should minify svg with svgo', function(cb) {
+            var stream = svgmin();
+            var fakeFile = new gutil.File({
+                contents: new Stream()
+            });
+        
+            stream.on('data', function(data) {
+                data.contents.pipe(es.wait(function(err, data) {
+                    expect(data).to.equal(compressed);
+                    cb();
+                }));
+            });
+        
+            stream.write(fakeFile);
+            fakeFile.contents.write(raw);
+            fakeFile.contents.end();
+        });
+        
+        it('should honor disabling plugins, such as keeping the doctype', function(cb) {
+            var stream = svgmin([{
+                removeDoctype: false
+            }]);
+            var fakeFile = new gutil.File({
+                contents: new Stream()
+            });
+        
+            stream.on('data', function(data) {
+                data.contents.pipe(es.wait(function(err, data) {
+                    expect(data).to.have.string(doctype);
+                    cb();
+                }));
+            });
+        
+            stream.write(fakeFile);
+            fakeFile.contents.write(raw);
+            fakeFile.contents.end();
+        });
+
+        it('should allow disabling multiple plugins', function(cb) {
+            var stream = svgmin([{
+                removeDoctype: false
+            }, {
+                removeComments: false
+            }]);
+
+            var fakeFile = new gutil.File({
+                contents: new Stream()
+            });
+
+            stream.on('data', function(data) {
+                data.contents.pipe(es.wait(function(err, data) {
+                    expect(data).to.have.string(doctype).and.to.have.string('test comment');
+                    cb();
+                }));
+            });
+
+            stream.write(fakeFile);
+            fakeFile.contents.write(raw);
+            fakeFile.contents.end();
+        });
     });
 });
