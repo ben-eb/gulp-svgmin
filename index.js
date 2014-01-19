@@ -60,6 +60,7 @@ function minifySVGGulp(plugins) {
                 }
                 file.contents = new Buffer(result.data);
                 stream.push(file);
+                gutil.log('gulp-svgmin:', gutil.colors.green('✔ ') + file.relative);
                 done();
             });
         }
