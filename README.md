@@ -12,7 +12,7 @@ npm install gulp-svgmin --save-dev
 
 ## Example
 
-```
+```js
 var gulp = require('gulp');
 var svgmin = require('gulp-svgmin');
 
@@ -27,7 +27,7 @@ gulp.task('default', function() {
 
 Optionally, you can disable any [SVGO plugins](https://github.com/svg/svgo/tree/master/plugins) to customise the output. You will need to provide the config in comma separated objects, like the example below.
 
-```
+```js
 gulp.task('default', function() {
     gulp.src('logo.svg')
         .pipe(svgmin([{
