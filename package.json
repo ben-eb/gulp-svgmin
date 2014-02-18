@@ -23,7 +23,7 @@
   "dependencies": {
     "svgo": "~0.4.4",
     "bufferstreams": "0.0.1",
-    "gulp-util": "~2.2.5"
+    "gulp-util": "~2.2.6"
   },
   "devDependencies": {
     "chai": "~1.9.0",
@@ -31,7 +31,6 @@
     "gulp": "~3.5.2",
     "gulp-mocha": "~0.4.1",
     "gulp-jshint": "~1.4.0",
-    "gulp-util": "~2.2.6",
     "jshint-stylish": "~0.1.5",
     "mocha": "~1.17.1",
     "event-stream": "~3.0.20"
