@@ -17,7 +17,7 @@ var gulp = require('gulp');
 var svgmin = require('gulp-svgmin');
 
 gulp.task('default', function() {
-    gulp.src('logo.svg')
+    return gulp.src('logo.svg')
         .pipe(svgmin())
         .pipe(gulp.dest('./out'));
 });
@@ -29,7 +29,7 @@ Optionally, you can disable any [SVGO plugins](https://github.com/svg/svgo/tree/
 
 ```js
 gulp.task('default', function() {
-    gulp.src('logo.svg')
+    return gulp.src('logo.svg')
         .pipe(svgmin([{
             removeDoctype: false
         }, {
