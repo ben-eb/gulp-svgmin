@@ -21,13 +21,13 @@ function minifySVGTransform(svgo) {
 
         // Handle any error
         if (err) {
-            cb(gutil.PluginError(PLUGIN_NAME, err));
+            cb(new gutil.PluginError(PLUGIN_NAME, err));
         }
 
         // Use the buffered content
         svgo.optimize(String(buf), function(result) {
             if (result.error) {
-                cb(gutil.PluginError(PLUGIN_NAME, result.error));
+                cb(new gutil.PluginError(PLUGIN_NAME, result.error));
             }
 
             // Bring it back to streams
@@ -56,7 +56,7 @@ function minifySVGGulp(plugins) {
         } else {
             svgo.optimize(String(file.contents), function(result) {
                 if (result.error) {
-                    stream.emit('error', gutil.PluginError(PLUGIN_NAME, result.error));
+                    stream.emit('error', new gutil.PluginError(PLUGIN_NAME, result.error));
                 }
                 file.contents = new Buffer(result.data);
                 stream.push(file);
