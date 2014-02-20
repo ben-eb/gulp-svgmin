@@ -1,6 +1,6 @@
 {
   "name": "gulp-svgmin",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Minify SVG files with gulp.",
   "license": "MIT",
   "homepage": "https://github.com/ben-eb/gulp-svgmin",
