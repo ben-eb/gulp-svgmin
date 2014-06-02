@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "svgo": "~0.4.4",
-    "bufferstreams": "0.0.1",
+    "bufferstreams": "0.0.2",
     "gulp-util": "~2.2.6"
   },
   "devDependencies": {
