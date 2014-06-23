@@ -92,66 +92,27 @@ describe('gulp-svgmin', function() {
 
     });
 
-    describe('stream mode', function() {
-        it('should minify svg with svgo', function(cb) {
-            var stream = svgmin();
-            var fakeFile = new gutil.File({
-                contents: new Stream()
-            });
-        
-            stream.on('data', function(data) {
-                data.contents.pipe(es.wait(function(err, data) {
-                    expect(data).to.equal(compressed);
-                    cb();
-                }));
-            });
-        
+    it('in stream mode must emit error', function(cb) {
+        var stream = svgmin();
+        var fakeFile = new gutil.File({
+            contents: new Stream()
+        });
+
+        stream.on('data', function(data) {
+            data.contents.pipe(es.wait(function(err, data) {
+                expect(data).to.equal(compressed);
+                cb();
+            }));
+        });
+
+        var doWrite = function() {
             stream.write(fakeFile);
             fakeFile.contents.write(raw);
             fakeFile.contents.end();
-        });
-        
-        it('should honor disabling plugins, such as keeping the doctype', function(cb) {
-            var stream = svgmin([{
-                removeDoctype: false
-            }]);
-            var fakeFile = new gutil.File({
-                contents: new Stream()
-            });
-        
-            stream.on('data', function(data) {
-                data.contents.pipe(es.wait(function(err, data) {
-                    expect(data).to.have.string(doctype);
-                    cb();
-                }));
-            });
-        
-            stream.write(fakeFile);
-            fakeFile.contents.write(raw);
-            fakeFile.contents.end();
-        });
+        };
 
-        it('should allow disabling multiple plugins', function(cb) {
-            var stream = svgmin([{
-                removeDoctype: false
-            }, {
-                removeComments: false
-            }]);
-
-            var fakeFile = new gutil.File({
-                contents: new Stream()
-            });
-
-            stream.on('data', function(data) {
-                data.contents.pipe(es.wait(function(err, data) {
-                    expect(data).to.have.string(doctype).and.to.have.string('test comment');
-                    cb();
-                }));
-            });
-
-            stream.write(fakeFile);
-            fakeFile.contents.write(raw);
-            fakeFile.contents.end();
-        });
+        expect(doWrite).to.throw(/Streaming not supported/);
+        cb();
     });
+
 });
