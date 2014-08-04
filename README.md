@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)](https://travis-ci.org/ben-eb/gulp-svgmin) [![NPM version](https://badge.fury.io/js/gulp-svgmin.png)](http://badge.fury.io/js/gulp-svgmin) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.png)](https://gemnasium.com/ben-eb/gulp-svgmin)
+# [gulp](https://github.com/gulpjs/gulp)-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)](https://travis-ci.org/ben-eb/gulp-svgmin) [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)](http://badge.fury.io/js/gulp-svgmin) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.png)](https://gemnasium.com/ben-eb/gulp-svgmin)
 
 > Minify SVG with [SVGO](https://github.com/svg/svgo).
 
