@@ -29,7 +29,6 @@
     "should": "^4.0.4",
     "clear": "0.0.1",
     "gulp": "~3.5.2",
-    "gulp-mocha": "~0.4.1",
     "gulp-jshint": "~1.4.0",
     "jshint-stylish": "~0.1.5",
     "mocha": "~1.17.1",
