@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "should": "^4.0.4",
-    "clear": "0.0.1",
     "gulp": "~3.8.8",
     "gulp-jshint": "~1.8.5",
     "jshint-stylish": "~1.0.0",
