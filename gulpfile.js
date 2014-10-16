@@ -9,7 +9,7 @@ var paths = {
 
 gulp.task('lint', function () {
   gulp.src(paths.js)
-    .pipe(jshint())
+    .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
