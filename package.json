@@ -9,6 +9,12 @@
     "email": "therealbenbriggs@hotmail.com",
     "url": "http://beneb.info"
   },
+  "contributors": [
+    {
+      "name": "Antoine Bolvy",
+      "email": "antoine.bolvy@gmail.com"
+    }
+  ],
   "scripts": {
     "test": "mocha --recursive -R spec test/ -t 1000"
   },
@@ -23,16 +29,16 @@
   "dependencies": {
     "svgo": "~0.4.5",
     "bufferstreams": "0.0.2",
-    "gulp-util": "~2.2.6"
+    "gulp-util": "~3.0.1"
   },
   "devDependencies": {
     "should": "^4.0.4",
     "clear": "0.0.1",
-    "gulp": "~3.5.2",
-    "gulp-jshint": "~1.4.0",
-    "jshint-stylish": "~0.1.5",
+    "gulp": "~3.8.8",
+    "gulp-jshint": "~1.8.5",
+    "jshint-stylish": "~1.0.0",
     "mocha": "~1.17.1",
     "event-stream": "~3.1.0"
   },
-  "main": "index.js"
+  "main": "lib/index.js"
 }
