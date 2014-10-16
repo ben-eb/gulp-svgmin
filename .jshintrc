@@ -1,4 +1,3 @@
-
 {
   "bitwise"       : true,
   "curly"         : true,
@@ -44,11 +43,10 @@
   "supernew"      : false,
   "validthis"     : false,
 
-  "browser"       : true,
   "couch"         : false,
   "devel"         : false,
   "dojo"          : false,
-  "jquery"        : true,
+  "jquery"        : false,
   "mootools"      : false,
   "node"          : true,
   "nonstandard"   : false,
@@ -63,16 +61,15 @@
 
   "maxerr"        : 100,
   "predef"        : [
-    "chrome",
-    "require",
     "describe",
     "it",
     "after",
     "before",
     "beforeEach",
-    "afterEach"
+    "afterEach",
+    "escape"
   ],
   "indent"        : 2,
-  "maxstatements" : 20,
-  "maxcomplexity" : 10
+  "maxstatements" : 30,
+  "maxcomplexity" : 15
 }
