@@ -9,12 +9,6 @@
     "email": "therealbenbriggs@hotmail.com",
     "url": "http://beneb.info"
   },
-  "contributors": [
-    {
-      "name": "Antoine Bolvy",
-      "email": "antoine.bolvy@gmail.com"
-    }
-  ],
   "scripts": {
     "test": "mocha --recursive -R spec test/ -t 1000"
   },

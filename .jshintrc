@@ -69,7 +69,7 @@
     "afterEach",
     "escape"
   ],
-  "indent"        : 2,
+  "indent"        : 4,
   "maxstatements" : 30,
   "maxcomplexity" : 15
 }
