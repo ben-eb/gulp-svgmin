@@ -24,7 +24,7 @@ var makeTest = function(options, content, expected) {
 
     stream.on('data', function(data) {
       data.contents.pipe(es.wait(function(err, data) {
-        data.toString().should.match(expected);
+        String(data).should.match(expected);
         done();
       }));
     });
@@ -36,7 +36,7 @@ var makeTest = function(options, content, expected) {
   it('in buffer mode', function(done) {
     var stream = svgmin(options);
     stream.on('data', function(data) {
-      data.contents.toString().should.match(expected);
+      String(data.contents).should.match(expected);
       done();
     });
 
@@ -52,14 +52,17 @@ describe('gulp-svgmin', function() {
       var stream = svgmin();
       var i = 0;
 
-      stream.pipe(es.through(function(file) {
+      stream.pipe(es.through(
+        function(file) {
           file.path.should.eql('bibabelula.md');
           (file.contents === null).should.be.true;
           i += 1;
-        }, function() {
+        },
+        function() {
           i.should.eql(1);
           done();
-        }));
+        }
+      ));
       stream.write(new gutil.File({
         path: 'bibabelula.md',
         contents: null
