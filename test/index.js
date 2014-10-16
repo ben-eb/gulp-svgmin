@@ -15,9 +15,9 @@ var raw = head + doctype + fullsvg;
 
 var compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#ff00"/></svg>';
 
-var makeTest = function(options, content, expected) {
+var makeTest = function(plugins, content, expected) {
   it('in stream mode', function(done) {
-    var stream = svgmin(options);
+    var stream = svgmin(plugins);
     var fakeFile = new gutil.File({
       contents: new Stream()
     });
@@ -34,7 +34,7 @@ var makeTest = function(options, content, expected) {
     fakeFile.contents.end();
   });
   it('in buffer mode', function(done) {
-    var stream = svgmin(options);
+    var stream = svgmin(plugins);
     stream.on('data', function(data) {
       String(data.contents).should.match(expected);
       done();
@@ -72,28 +72,24 @@ describe('gulp-svgmin', function() {
   });
 
   describe('should minify svg with svgo', function() {
-    makeTest({}, raw, compressed);
+    makeTest([], raw, compressed);
   });
 
   describe('should honor disabling plugins, such as keeping the doctype', function() {
-    var options = {
-      plugins: [
-        { removeDoctype: false }
-      ]
-    };
-    makeTest(options, raw, function(content) {
+    var plugins = [
+      { removeDoctype: false }
+    ];
+    makeTest(plugins, raw, function(content) {
       return content.should.containEql(doctype);
     });
   });
 
   describe('should allow disabling multiple plugins', function() {
-    var options = {
-      plugins: [
-        { removeDoctype: false },
-        { removeComments: false }
-      ]
-    };
-    makeTest(options, raw, function(content) {
+    var plugins = [
+      { removeDoctype: false },
+      { removeComments: false }
+    ];
+    makeTest(plugins, raw, function(content) {
       return content.should.containEql(doctype).and.containEql('test comment');
     });
   });
