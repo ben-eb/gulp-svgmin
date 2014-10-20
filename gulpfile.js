@@ -2,25 +2,25 @@
 
 'use strict';
 
-var gulp    = require('gulp'),
-    gutil   = require('gulp-util'),
-    clear   = require('clear'),
-    mocha   = require('gulp-mocha'),
-    jshint  = require('gulp-jshint'),
-    stylish = require('jshint-stylish');
+var gulp   = require('gulp'),
+    mocha  = require('gulp-mocha'),
+    jshint = require('gulp-jshint');
 
-gulp.task('lint', function () {
+gulp.task('lint', function() {
     gulp.src('*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('test', function() {
+    gulp.src('test.js', {read: false})
         .pipe(mocha());
 });
 
-gulp.task('default', function() {
-    gulp.run('lint');
-    gulp.watch('*.js', function(event) {
-        clear();
-        gutil.log(gutil.colors.cyan(event.path.replace(process.cwd(), '')) + ' ' + event.type + '. (' + gutil.colors.magenta(gutil.date('HH:MM:ss')) + ')');
-        gulp.run('lint');
-    });
+gulp.task('watch', function() {
+    gulp.watch('*.js', ['dev']);
 });
+
+gulp.task('dev', ['lint', 'test']);
+
+gulp.task('default', ['dev', 'watch']);
