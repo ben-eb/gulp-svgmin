@@ -30,11 +30,21 @@ Optionally, you can disable any [SVGO plugins](https://github.com/svg/svgo/tree/
 ```js
 gulp.task('default', function() {
     return gulp.src('logo.svg')
-        .pipe(svgmin([{
-            removeDoctype: false
-        }, {
-            removeComments: false
-        }]))
+        .pipe(svgmin({
+            plugins: [{
+                removeDoctype: false
+            }, {
+                removeComments: false
+            }]
+        }))
         .pipe(gulp.dest('./out'));
 });
 ```
+
+## Contributing
+
+Pull requests are welcome. If you add functionality, then please add unit tests to cover it.
+
+## License
+
+MIT © Ben Briggs
