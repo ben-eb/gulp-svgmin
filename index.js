@@ -35,9 +35,9 @@ function minifySVGTransform(svgo) {
 }
 
 // Plugin function
-function minifySVGGulp(plugins) {
+function minifySVGGulp(options) {
     var stream = new Transform({objectMode: true});
-    var svgo = new SVGOptim({ plugins: plugins });
+    var svgo = new SVGOptim(options);
 
     stream._transform = function(file, unused, done) {
         // When null just pass through

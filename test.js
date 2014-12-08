@@ -20,7 +20,7 @@ var compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50
 
 var makeTest = function(plugins, content, expected) {
     it('in stream mode', function(done) {
-        var stream = svgmin(plugins);
+        var stream = svgmin({ plugins: plugins });
         var fakeFile = new gutil.File({
             contents: new Stream()
         });
@@ -36,8 +36,9 @@ var makeTest = function(plugins, content, expected) {
         fakeFile.contents.write(content);
         fakeFile.contents.end();
     });
+
     it('in buffer mode', function(done) {
-        var stream = svgmin(plugins);
+        var stream = svgmin({ plugins: plugins });
         stream.on('data', function(data) {
             expect(String(data.contents)).satisfy(expected);
             done();
