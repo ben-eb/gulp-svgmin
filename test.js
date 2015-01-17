@@ -19,24 +19,6 @@ var head = '<?xml version="1.0" encoding="utf-8"?>',
 var compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#ff00"/></svg>';
 
 var makeTest = function(plugins, content, expected) {
-    it('in stream mode', function(done) {
-        var stream = svgmin({ plugins: plugins });
-        var fakeFile = new gutil.File({
-            contents: new Stream()
-        });
-
-        stream.on('data', function(data) {
-            data.contents.pipe(es.wait(function(err, data) {
-                expect(String(data)).satisfy(expected);
-                done();
-            }));
-        });
-
-        stream.write(fakeFile);
-        fakeFile.contents.write(content);
-        fakeFile.contents.end();
-    });
-
     it('in buffer mode', function(done) {
         var stream = svgmin({ plugins: plugins });
         stream.on('data', function(data) {
@@ -98,5 +80,21 @@ describe('gulp-svgmin', function() {
         makeTest(plugins, raw, function(content) {
             return expect(content).to.contain(doctype).and.contain('test comment');
         });
+    });
+
+    it('in stream mode must emit error', function(cb) {
+        var stream = svgmin();
+        var fakeFile = new gutil.File({
+            contents: new Stream()
+        });
+
+        var doWrite = function() {
+            stream.write(fakeFile);
+            fakeFile.contents.write(raw);
+            fakeFile.contents.end();
+        };
+
+        expect(doWrite).to.throw(/Streaming not supported/);
+        cb();
     });
 });

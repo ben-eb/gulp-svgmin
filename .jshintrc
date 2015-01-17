@@ -1,5 +1,6 @@
 {
     "expr": true,
+    "node": true,
     "strict": true,
     "trailing": true,
     "undef": true,
