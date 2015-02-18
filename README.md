@@ -1,4 +1,4 @@
-# [gulp][gulp]-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.png)][deps]
+# [gulp][gulp]-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.svg)][deps]
 
 > Minify SVG with [SVGO][orig].
 
@@ -59,6 +59,7 @@ gulp.task('pretty', function() {
         }))
         .pipe(gulp.dest('./out'))
 });
+```
 
 ## Contributing
 
