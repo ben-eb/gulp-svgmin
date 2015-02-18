@@ -21,10 +21,8 @@
     "svg"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.2"
-  },
-  "peerDependencies": {
-    "svgo": "*"
+    "gulp-util": "^3.0.2",
+    "svgo": "^0.5.0"
   },
   "devDependencies": {
     "chai": "~1.10.0",
