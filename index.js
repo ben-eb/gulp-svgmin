@@ -2,30 +2,31 @@
 
 var Transform = require('stream').Transform,
     SVGOptim = require('svgo'),
-    gutil = require('gulp-util');
+    PluginError = require('gulp-util').PluginError,
 
-var PLUGIN_NAME = 'gulp-svgmin';
+    PLUGIN_NAME = 'gulp-svgmin';
 
-module.exports = function(options) {
+module.exports = function (options) {
     var stream = new Transform({objectMode: true});
     var svgo = new SVGOptim(options);
 
-    stream._transform = function(file, unused, done) {
+    stream._transform = function (file, encoding, cb) {
+        if (file.isNull()) {
+            return cb(null, file);
+        }
+
         if (file.isStream()) {
-            return done(new gutil.PluginError(PLUGIN_NAME, "Streaming not supported"));
+            return cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
         }
 
         if (file.isBuffer()) {
-            svgo.optimize(String(file.contents), function(result) {
+            svgo.optimize(String(file.contents), function (result) {
                 if (result.error) {
-                    return done(new gutil.PluginError(PLUGIN_NAME, result.error));
+                    return cb(new PluginError(PLUGIN_NAME, result.error));
                 }
                 file.contents = new Buffer(result.data);
-                done(null, file);
+                cb(null, file);
             });
-        } else {
-            // When null just pass through
-            done(null, file);
         }
     };
 
