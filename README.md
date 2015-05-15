@@ -33,13 +33,13 @@ below.
 ```js
 gulp.task('default', function() {
     return gulp.src('logo.svg')
-        .pipe(svgmin({
-            plugins: [{
+        .pipe(svgmin([
+            {
                 removeDoctype: false
             }, {
                 removeComments: false
-            }]
-        }))
+            }
+        ])
         .pipe(gulp.dest('./out'));
 });
 ```
