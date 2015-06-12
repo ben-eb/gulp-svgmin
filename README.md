@@ -44,6 +44,26 @@ gulp.task('default', function() {
 });
 ```
 
+In order to set parameters of [SVGO plugins][plugins], use the following syntax:
+
+```
+gulp.task('default', function(){
+    return gulp.src('logo.svg')
+        .pipe(svgmin({
+            plugins: [{
+                cleanupNumericValues: {
+                    floatPrecision: 2
+                },
+                convertColors: {
+                    names2hex: false,
+                    rgb2hex: false
+                }
+            }]
+        }))
+        .pipe(gulp.dest('./out'));
+});
+```
+
 ## Beautify
 
 You can also use `gulp-svgmin` to optimise your SVG but render a pretty output,
