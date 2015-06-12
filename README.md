@@ -5,7 +5,9 @@
 *If you have any difficulties with the output of this plugin, please use the
 [SVGO tracker][bugs].*
 
-Install via [npm](https://npmjs.org/package/gulp-svgmin):
+## Install
+
+With [npm](https://npmjs.org/package/gulp-svgmin) do:
 
 ```
 npm install gulp-svgmin --save-dev
@@ -17,7 +19,7 @@ npm install gulp-svgmin --save-dev
 var gulp = require('gulp');
 var svgmin = require('gulp-svgmin');
 
-gulp.task('default', function() {
+gulp.task('default', function () {
     return gulp.src('logo.svg')
         .pipe(svgmin())
         .pipe(gulp.dest('./out'));
@@ -26,34 +28,24 @@ gulp.task('default', function() {
 
 ## Plugins
 
-Optionally, you can disable any [SVGO plugins][plugins] to customise the output.
-You will need to provide the config in comma separated objects, like the example
-below.
+Optionally, you can customise the output by specifying the `plugins` option. You
+will need to provide the config in comma separated objects, like the example
+below. Note that you can either disable the plugin by setting it to false,
+or pass different options to change the default behaviour.
 
-```js
-gulp.task('default', function() {
+```
+gulp.task('default', function () {
     return gulp.src('logo.svg')
         .pipe(svgmin({
             plugins: [{
                 removeDoctype: false
             }, {
                 removeComments: false
-            }]
-        }))
-        .pipe(gulp.dest('./out'));
-});
-```
-
-In order to set parameters of [SVGO plugins][plugins], use the following syntax:
-
-```
-gulp.task('default', function(){
-    return gulp.src('logo.svg')
-        .pipe(svgmin({
-            plugins: [{
+            }, {
                 cleanupNumericValues: {
                     floatPrecision: 2
-                },
+                }
+            }, {
                 convertColors: {
                     names2hex: false,
                     rgb2hex: false
@@ -64,13 +56,15 @@ gulp.task('default', function(){
 });
 ```
 
+You can view the [full list of plugins here][plugins].
+
 ## Beautify
 
 You can also use `gulp-svgmin` to optimise your SVG but render a pretty output,
 instead of the default where all extraneous whitespace is removed:
 
 ```js
-gulp.task('pretty', function() {
+gulp.task('pretty', function () {
     return gulp.src('logo.svg')
         .pipe(svgmin({
             js2svg: {
@@ -88,7 +82,7 @@ to cover it.
 
 ## License
 
-MIT © Ben Briggs
+MIT © [Ben Briggs](http://beneb.info)
 
 [bugs]:    https://github.com/svg/svgo/issues
 [ci]:      https://travis-ci.org/ben-eb/gulp-svgmin
