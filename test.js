@@ -31,7 +31,6 @@ function makeTest (plugins, content, expected, done) {
 describe('gulp-svgmin', function () {
     it('should let null files pass through', function (done) {
         var stream = svgmin();
-        var i = 0;
 
         stream.on('data', function (data) {
             expect(data.contents).to.equal(null);
@@ -58,6 +57,20 @@ describe('gulp-svgmin', function () {
         makeTest(plugins, raw, function (content) {
             return expect(content).to.contain(doctype);
         }, done);
+    });
+
+    it('should allow per file options, such as keeping the doctype', function (cb) {
+        var file = new gutil.File({contents: new Buffer(raw)});
+        var getOptions = function (f) {
+            expect(f).to.equal(file);
+            return {plugins: [{removeDoctype: false}]};
+        };
+        var stream = svgmin(getOptions);
+        stream.on('data', function (data) {
+            expect(data.contents.toString()).to.contain(doctype);
+            cb();
+        });
+        stream.write(file);
     });
 
     it('should allow disabling multiple plugins', function (done) {

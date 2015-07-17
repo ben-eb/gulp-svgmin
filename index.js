@@ -8,7 +8,11 @@ var Transform = require('stream').Transform,
 
 module.exports = function (options) {
     var stream = new Transform({objectMode: true});
-    var svgo = new SVGOptim(options);
+    var svgo;
+
+    if (typeof options !== 'function') {
+        svgo = new SVGOptim(options);
+    }
 
     stream._transform = function (file, encoding, cb) {
         if (file.isNull()) {
@@ -20,6 +24,11 @@ module.exports = function (options) {
         }
 
         if (file.isBuffer()) {
+
+            if (typeof options === 'function') {
+                svgo = new SVGOptim(options(file));
+            }
+
             svgo.optimize(String(file.contents), function (result) {
                 if (result.error) {
                     return cb(new PluginError(PLUGIN_NAME, result.error));
