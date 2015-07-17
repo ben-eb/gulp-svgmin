@@ -75,6 +75,31 @@ gulp.task('pretty', function () {
 });
 ```
 
+## Per-file options
+
+To have per-file options, pass a function, that receives `file` object and
+returns `svgo` options. For example, if you need to prefix ids with filenames
+to make them unique before combining svgs with [gulp-svgstore](https://github.com/w0rm/gulp-svgstore):
+
+```js
+gulp.task('default', function () {
+    return gulp.src('src/*.svg')
+        .pipe(svgmin(function getOptions (file) {
+            var prefix = path.basename(file.relative, path.extname(file.relative));
+            return {
+                plugins: [{
+                    cleanupIDs: {
+                        prefix: prefix + '-',
+                        minify: true
+                    }
+                }]
+            }
+        }))
+        .pipe(svgstore())
+        .pipe(gulp.dest('./dest'));
+});
+```
+
 ## Contributing
 
 Pull requests are welcome. If you add functionality, then please add unit tests
