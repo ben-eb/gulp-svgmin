@@ -5,13 +5,15 @@
 *If you have any difficulties with the output of this plugin, please use the
 [SVGO tracker][bugs].*
 
+
 ## Install
 
 With [npm](https://npmjs.org/package/gulp-svgmin) do:
 
 ```
-npm install gulp-svgmin --save-dev
+npm install gulp-svgmin
 ```
+
 
 ## Example
 
@@ -26,6 +28,7 @@ gulp.task('default', function () {
 });
 ```
 
+
 ## Plugins
 
 Optionally, you can customise the output by specifying the `plugins` option. You
@@ -33,7 +36,7 @@ will need to provide the config in comma separated objects, like the example
 below. Note that you can either disable the plugin by setting it to false,
 or pass different options to change the default behaviour.
 
-```
+```js
 gulp.task('default', function () {
     return gulp.src('logo.svg')
         .pipe(svgmin({
@@ -58,6 +61,7 @@ gulp.task('default', function () {
 
 You can view the [full list of plugins here][plugins].
 
+
 ## Beautify
 
 You can also use `gulp-svgmin` to optimise your SVG but render a pretty output,
@@ -74,6 +78,7 @@ gulp.task('pretty', function () {
         .pipe(gulp.dest('./out'))
 });
 ```
+
 
 ## Per-file options
 
@@ -100,14 +105,17 @@ gulp.task('default', function () {
 });
 ```
 
+
 ## Contributing
 
 Pull requests are welcome. If you add functionality, then please add unit tests
 to cover it.
 
+
 ## License
 
 MIT © [Ben Briggs](http://beneb.info)
+
 
 [bugs]:    https://github.com/svg/svgo/issues
 [ci]:      https://travis-ci.org/ben-eb/gulp-svgmin

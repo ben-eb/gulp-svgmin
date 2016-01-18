@@ -10,24 +10,29 @@
     "url": "http://beneb.info"
   },
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint *.js",
+    "test": "npm run lint && nyc ava test.js"
   },
   "repository": "ben-eb/gulp-svgmin",
+  "files": [
+    "index.js",
+    "LICENSE-MIT"
+  ],
   "keywords": [
     "gulpplugin",
-    "svg"
+    "minify",
+    "svg",
+    "svgo"
   ],
   "dependencies": {
     "gulp-util": "^3.0.4",
     "svgo": "^0.6.1"
   },
   "devDependencies": {
+    "ava": "^0.10.0",
     "chai": "~3.4.1",
-    "gulp": "~3.9.0",
-    "gulp-jshint": "~2.0.0",
-    "gulp-mocha": "^2.0.1",
-    "jshint-stylish": "~2.1.0",
-    "mocha": "~2.3.4"
+    "eslint": "^1.10.3",
+    "nyc": "^5.3.0"
   },
   "main": "index.js"
 }

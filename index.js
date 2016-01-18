@@ -1,5 +1,3 @@
-'use strict';
-
 var Transform = require('stream').Transform,
     SVGOptim = require('svgo'),
     PluginError = require('gulp-util').PluginError,
