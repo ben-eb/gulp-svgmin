@@ -1,15 +1,15 @@
-var Transform = require('stream').Transform,
-    SVGOptim = require('svgo'),
-    PluginError = require('gulp-util').PluginError,
+import {Transform} from 'stream';
+import SVGOptim from 'svgo';
+import {PluginError} from 'gulp-util';
 
-    PLUGIN_NAME = 'gulp-svgmin';
+const PLUGIN_NAME = 'gulp-svgmin';
 
-module.exports = function (options) {
-    var stream = new Transform({objectMode: true});
-    var svgo;
+module.exports = function (opts) {
+    const stream = new Transform({objectMode: true});
+    let svgo;
 
     if (typeof options !== 'function') {
-        svgo = new SVGOptim(options);
+        svgo = new SVGOptim(opts);
     }
 
     stream._transform = function (file, encoding, cb) {
@@ -22,12 +22,11 @@ module.exports = function (options) {
         }
 
         if (file.isBuffer()) {
-
-            if (typeof options === 'function') {
-                svgo = new SVGOptim(options(file));
+            if (typeof opts === 'function') {
+                svgo = new SVGOptim(opts(file));
             }
 
-            svgo.optimize(String(file.contents), function (result) {
+            svgo.optimize(String(file.contents), result => {
                 if (result.error) {
                     return cb(new PluginError(PLUGIN_NAME, result.error));
                 }
