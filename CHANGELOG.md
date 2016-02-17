@@ -1,3 +1,7 @@
+# 1.2.2
+
+* Now compiled with babel 6.
+
 # 1.2.1
 
 * Bump svgo to v0.6.x.
