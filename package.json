@@ -43,7 +43,7 @@
     "del-cli": "^0.2.0",
     "eslint": "^2.1.0",
     "eslint-config-cssnano": "^2.0.0",
-    "nyc": "^6.0.0"
+    "nyc": "^6.6.0"
   },
   "eslintConfig": {
     "extends": "cssnano"
