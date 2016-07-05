@@ -42,7 +42,7 @@
     "coveralls": "^2.11.6",
     "del-cli": "^0.2.0",
     "eslint": "^2.1.0",
-    "eslint-config-cssnano": "^2.0.0",
+    "eslint-config-cssnano": "^3.0.2",
     "nyc": "^6.0.0"
   },
   "eslintConfig": {
