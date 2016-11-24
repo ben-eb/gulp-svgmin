@@ -45,7 +45,7 @@
     "del-cli": "^0.2.0",
     "eslint": "^3.0.0",
     "eslint-config-cssnano": "^3.0.0",
-    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",
     "nyc": "^10.0.0"
   },
