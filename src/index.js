@@ -8,7 +8,7 @@ module.exports = function (opts) {
     const stream = new Transform({objectMode: true});
     let svgo;
 
-    if (typeof options !== 'function') {
+    if (typeof opts !== 'function') {
         svgo = new SVGOptim(opts);
     }
 
