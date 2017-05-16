@@ -1,3 +1,7 @@
+# 1.2.4
+
+* Fixed a regression with the per-file options (thanks to @Odrin).
+
 # 1.2.3
 
 * Bump svgo to v0.7.x.
