@@ -28,8 +28,8 @@
     "svgo"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.4",
-    "svgo": "^0.7.0"
+    "plugin-error": "^0.1.2",
+    "svgo": "^1.0.3"
   },
   "devDependencies": {
     "ava": "^0.17.0",
@@ -47,7 +47,8 @@
     "eslint-config-cssnano": "^3.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.1",
-    "nyc": "^10.0.0"
+    "nyc": "^10.0.0",
+    "vinyl": "^2.1.0"
   },
   "eslintConfig": {
     "extends": "cssnano"
