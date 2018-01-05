@@ -97,5 +97,16 @@ ava('in stream mode must emit error', (t) => {
         fakeFile.contents.end();
     };
 
-    t.throws(doWrite, /Streaming not supported/);
+    t.throws(doWrite, /blah/);
+});
+
+ava('stream should emit an error when svgo errors', (t) => {
+    const stream = svgmin();
+    const fakeFile = new Vinyl({
+        contents: new Buffer('throw an error'),
+    });
+
+    stream.write(fakeFile);
+
+    stream.on('error', error => t.regex(error, /Error in parsing SVG/));
 });
