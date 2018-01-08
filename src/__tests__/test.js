@@ -97,7 +97,7 @@ ava('in stream mode must emit error', (t) => {
         fakeFile.contents.end();
     };
 
-    t.throws(doWrite, /blah/);
+    t.throws(doWrite, /Streaming not supported/);
 });
 
 ava('stream should emit an error when svgo errors', (t) => {
