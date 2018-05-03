@@ -1,6 +1,6 @@
 import {Transform} from 'stream';
 import SVGOptim from 'svgo';
-import {PluginError} from 'gulp-util';
+import PluginError from 'plugin-error';
 
 const PLUGIN_NAME = 'gulp-svgmin';
 
@@ -26,13 +26,13 @@ module.exports = function (opts) {
                 svgo = new SVGOptim(opts(file));
             }
 
-            svgo.optimize(String(file.contents), result => {
-                if (result.error) {
-                    return cb(new PluginError(PLUGIN_NAME, result.error));
-                }
-                file.contents = new Buffer(result.data);
-                cb(null, file);
-            });
+            svgo.optimize(String(file.contents))
+                .then(result => {
+                    file.contents = new Buffer(result.data);
+                    cb(null, file);
+                }, error => {
+                    cb(new PluginError(PLUGIN_NAME, error));
+                });
         }
     };
 

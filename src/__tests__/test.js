@@ -1,7 +1,7 @@
 import Stream from 'stream';
 import {expect} from 'chai';
 import ava from 'ava';
-import gutil from 'gulp-util';
+import Vinyl from 'vinyl';
 import svgmin from '..';
 
 const head = '<?xml version="1.0" encoding="utf-8"?>';
@@ -22,7 +22,7 @@ function makeTest (plugins, content, expected) {
             resolve();
         });
 
-        stream.write(new gutil.File({contents: new Buffer(content)}));
+        stream.write(new Vinyl({contents: new Buffer(content)}));
     });
 }
 
@@ -35,7 +35,7 @@ ava('should let null files pass through', () => {
             resolve();
         });
 
-        stream.write(new gutil.File({
+        stream.write(new Vinyl({
             path: 'null.md',
             contents: null,
         }));
@@ -69,7 +69,7 @@ ava('should allow disabling multiple plugins', () => {
 
 ava('should allow per file options, such as keeping the doctype', () => {
     return new Promise(resolve => {
-        const file = new gutil.File({contents: new Buffer(raw)});
+        const file = new Vinyl({contents: new Buffer(raw)});
 
         const stream = svgmin(data => {
             expect(data).to.equal(file);
@@ -87,8 +87,8 @@ ava('should allow per file options, such as keeping the doctype', () => {
 
 ava('in stream mode must emit error', (t) => {
     const stream = svgmin();
-    const fakeFile = new gutil.File({
-        contents: new Stream(),
+    const fakeFile = new Vinyl({
+        contents: new Stream.Readable(),
     });
 
     const doWrite = function () {
@@ -98,4 +98,15 @@ ava('in stream mode must emit error', (t) => {
     };
 
     t.throws(doWrite, /Streaming not supported/);
+});
+
+ava('stream should emit an error when svgo errors', (t) => {
+    const stream = svgmin();
+    const fakeFile = new Vinyl({
+        contents: new Buffer('throw an error'),
+    });
+
+    stream.write(fakeFile);
+
+    stream.on('error', error => t.regex(error, /Error in parsing SVG/));
 });
