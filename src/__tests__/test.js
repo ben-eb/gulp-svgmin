@@ -1,4 +1,3 @@
-import Stream from 'stream';
 import {expect} from 'chai';
 import ava from 'ava';
 import Vinyl from 'vinyl';

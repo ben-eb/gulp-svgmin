@@ -28,7 +28,7 @@
     "svgo"
   ],
   "dependencies": {
-    "plugin-error": "^0.1.2",
+    "plugin-error": "^1.0.1",
     "svgo": "^0.7.0"
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.1",
     "nyc": "^10.0.0",
-    "vinyl": "^2.1.0"
+    "vinyl": "^2.2.0"
   },
   "eslintConfig": {
     "extends": "cssnano"
