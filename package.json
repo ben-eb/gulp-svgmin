@@ -12,7 +12,7 @@
   "main": "dist/index.js",
   "scripts": {
     "pretest": "eslint src",
-    "prepublish": "del-cli dist && BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
+    "prepublish": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
     "test": "nyc ava src/__tests__",
     "test-012": "nyc ava src/__tests__"
   },
@@ -42,6 +42,7 @@
     "babel-register": "^6.9.0",
     "chai": "~3.5.0",
     "coveralls": "^2.11.6",
+    "cross-env": "^5.2.0",
     "del-cli": "^0.2.0",
     "eslint": "^3.0.0",
     "eslint-config-cssnano": "^3.0.0",
