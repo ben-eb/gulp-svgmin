@@ -12,9 +12,8 @@
   "main": "dist/index.js",
   "scripts": {
     "pretest": "eslint src",
-    "prepublish": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
-    "test": "nyc ava src/__tests__",
-    "test-012": "nyc ava src/__tests__"
+    "prepublishOnly": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
+    "test": "nyc ava src/__tests__"
   },
   "files": [
     "LICENSE-MIT",
