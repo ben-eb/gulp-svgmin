@@ -1,3 +1,7 @@
+# UNREALEASED
+
+* Update svgo and other dependencies
+
 # 1.2.4
 
 * Fixed a regression with the per-file options (thanks to @Odrin).
