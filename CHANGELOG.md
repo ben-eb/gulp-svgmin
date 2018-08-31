@@ -1,6 +1,8 @@
-# UNREALEASED
+# 2.0.0
 
-* Update svgo and other dependencies
+* Bump svgo to v1.0.x. (thanks to @theverything)
+* Drop dependency on deprecated 'gulp-util'. (thanks to @TheDancingCode)
+* Drop support for old node version.
 
 # 1.2.4
 
@@ -40,4 +42,4 @@
 
 # 0.4.8
 
-* Bump SVGo to v0.5
+* Bump svgo to v0.5
