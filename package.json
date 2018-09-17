@@ -32,10 +32,10 @@
   },
   "devDependencies": {
     "ava": "^0.17.0",
-    "babel-cli": "^6.5.1",
-    "babel-core": "^6.5.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.9.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
