@@ -1,3 +1,7 @@
+# 2.2.0
+
+* Bump svgo to v1.2.1. (thanks to @ekfuhrmann)
+
 # 2.1.0
 
 * Bump svgo to v1.1.x. 
