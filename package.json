@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "plugin-error": "^1.0.1",
-    "svgo": "^1.1.1"
+    "svgo": "^1.2.1"
   },
   "devDependencies": {
     "ava": "^0.17.0",
