@@ -28,7 +28,7 @@ module.exports = function (opts) {
 
             svgo.optimize(String(file.contents))
                 .then(result => {
-                    file.contents = new Buffer(result.data);
+                    file.contents = Buffer.from(result.data);
                     cb(null, file);
                 }, error => {
                     cb(new PluginError(PLUGIN_NAME, error));

@@ -22,7 +22,7 @@ function makeTest (plugins, content, expected) {
             resolve();
         });
 
-        stream.write(new Vinyl({contents: new Buffer(content)}));
+        stream.write(new Vinyl({contents: Buffer.from(content)}));
     });
 }
 
@@ -69,7 +69,7 @@ ava('should allow disabling multiple plugins', () => {
 
 ava('should allow per file options, such as keeping the doctype', () => {
     return new Promise(resolve => {
-        const file = new Vinyl({contents: new Buffer(raw)});
+        const file = new Vinyl({contents: Buffer.from(raw)});
 
         const stream = svgmin(data => {
             expect(data).to.equal(file);
@@ -103,7 +103,7 @@ ava('in stream mode must emit error', (t) => {
 ava('stream should emit an error when svgo errors', (t) => {
     const stream = svgmin();
     const fakeFile = new Vinyl({
-        contents: new Buffer('throw an error'),
+        contents: Buffer.from('throw an error'),
     });
 
     stream.write(fakeFile);
