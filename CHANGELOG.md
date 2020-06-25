@@ -1,10 +1,16 @@
+# 3.0.0
+
+* Bump svgo to v1.3.2.
+* Drop node 8 support.
+* Update dependencies
+
 # 2.2.0
 
 * Bump svgo to v1.2.1. (thanks to @ekfuhrmann)
 
 # 2.1.0
 
-* Bump svgo to v1.1.x. 
+* Bump svgo to v1.1.x.
 * Update babel-dependencies (but not yet to v7)
 
 # 2.0.0
