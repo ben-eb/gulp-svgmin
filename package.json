@@ -11,7 +11,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "pretest": "eslint src",
+    "pretest": "xo src",
     "prepublishOnly": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
     "test": "nyc ava src/__tests__"
   },
@@ -40,15 +40,19 @@
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
     "del-cli": "^3.0.1",
-    "eslint": "^3.0.0",
-    "eslint-config-cssnano": "^3.1.3",
-    "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-import": "^2.21.2",
     "nyc": "^15.1.0",
-    "vinyl": "^2.2.0"
+    "prettier": "^2.2.1",
+    "vinyl": "^2.2.0",
+    "xo": "^0.38.2"
   },
-  "eslintConfig": {
-    "extends": "cssnano"
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true
+  },
+  "xo": {
+    "prettier": true
   },
   "ava": {
     "require": "babel-register"

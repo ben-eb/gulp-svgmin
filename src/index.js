@@ -4,12 +4,12 @@ import PluginError from 'plugin-error';
 
 const PLUGIN_NAME = 'gulp-svgmin';
 
-module.exports = function (opts) {
+module.exports = function (options) {
     const stream = new Transform({objectMode: true});
     let svgo;
 
-    if (typeof opts !== 'function') {
-        svgo = new SVGOptim(opts);
+    if (typeof options !== 'function') {
+        svgo = new SVGOptim(options);
     }
 
     stream._transform = function (file, encoding, cb) {
@@ -22,17 +22,19 @@ module.exports = function (opts) {
         }
 
         if (file.isBuffer()) {
-            if (typeof opts === 'function') {
-                svgo = new SVGOptim(opts(file));
+            if (typeof options === 'function') {
+                svgo = new SVGOptim(options(file));
             }
 
-            svgo.optimize(String(file.contents))
-                .then(result => {
+            svgo.optimize(String(file.contents)).then(
+                (result) => {
                     file.contents = Buffer.from(result.data);
                     cb(null, file);
-                }, error => {
+                },
+                (error) => {
                     cb(new PluginError(PLUGIN_NAME, error));
-                });
+                }
+            );
         }
     };
 
