@@ -1,23 +1,25 @@
+import fs from 'fs';
+import path from 'path';
 import Stream from 'stream';
 import {expect} from 'chai';
-import ava from 'ava';
+import test from 'ava';
 import Vinyl from 'vinyl';
-import svgmin from '..';
+import svgmin from '../index.js';
 
-const head = '<?xml version="1.0" encoding="utf-8"?>';
-const doctype = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
-const fullsvg = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">' +
-            '<circle cx="50" cy="50" r="40" fill="yellow" />' +
-            '<!-- test comment --></svg>';
+function readFixture(svg) {
+    return fs
+        .readFileSync(path.join(__dirname, svg), 'utf8')
+        .replace(/\n$/, '');
+}
 
-const raw = head + doctype + fullsvg;
-const compressed = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#ff0"/></svg>';
+const raw = readFixture('input.svg');
+const compressed = readFixture('output.svg');
 
-function makeTest (plugins, content, expected) {
-    return new Promise(resolve => {
-        const stream = svgmin({plugins: plugins});
+function makeTest(plugins, content, expected) {
+    return new Promise((resolve) => {
+        const stream = svgmin({plugins});
 
-        stream.on('data', data => {
+        stream.on('data', (data) => {
             expect(String(data.contents)).satisfy(expected);
             resolve();
         });
@@ -26,58 +28,57 @@ function makeTest (plugins, content, expected) {
     });
 }
 
-ava('should let null files pass through', () => {
-    return new Promise(resolve => {
+test('should let null files pass through', () => {
+    return new Promise((resolve) => {
         const stream = svgmin();
 
-        stream.on('data', data => {
+        stream.on('data', (data) => {
             expect(data.contents).to.equal(null);
             resolve();
         });
 
-        stream.write(new Vinyl({
-            path: 'null.md',
-            contents: null,
-        }));
+        stream.write(
+            new Vinyl({
+                path: 'null.md',
+                contents: null,
+            })
+        );
 
         stream.end();
     });
 });
 
-ava('should minify svg with svgo', () => {
-    return makeTest([], raw, content => compressed === content);
+test('should minify svg with svgo', () => {
+    return makeTest([], raw, (content) => compressed === content);
 });
 
-ava('should honor disabling plugins, such as keeping the doctype', () => {
-    const plugins = [
-        {removeDoctype: false},
-    ];
-    return makeTest(plugins, raw, content => {
-        return expect(content).to.contain(doctype);
+test('should honor disabling plugins, such as keeping the doctype', () => {
+    const plugins = [{removeDoctype: false}];
+    return makeTest(plugins, raw, (content) => {
+        return expect(content).to.contain('DOCTYPE');
     });
 });
 
-ava('should allow disabling multiple plugins', () => {
-    const plugins = [
-        {removeDoctype: false},
-        {removeComments: false},
-    ];
-    return makeTest(plugins, raw, content => {
-        return expect(content).to.contain(doctype).and.contain('test comment');
+test('should allow disabling multiple plugins', () => {
+    const plugins = [{removeDoctype: false}, {removeComments: false}];
+    return makeTest(plugins, raw, (content) => {
+        return expect(content)
+            .to.contain('DOCTYPE')
+            .and.contain('test comment');
     });
 });
 
-ava('should allow per file options, such as keeping the doctype', () => {
-    return new Promise(resolve => {
+test('should allow per file options, such as keeping the doctype', () => {
+    return new Promise((resolve) => {
         const file = new Vinyl({contents: Buffer.from(raw)});
 
-        const stream = svgmin(data => {
+        const stream = svgmin((data) => {
             expect(data).to.equal(file);
             return {plugins: [{removeDoctype: false}]};
         });
 
-        stream.on('data', data => {
-            expect(data.contents.toString()).to.contain(doctype);
+        stream.on('data', (data) => {
+            expect(data.contents.toString()).to.contain('DOCTYPE');
             resolve();
         });
 
@@ -85,7 +86,7 @@ ava('should allow per file options, such as keeping the doctype', () => {
     });
 });
 
-ava('in stream mode must emit error', (t) => {
+test('in stream mode must emit error', (t) => {
     const stream = svgmin();
     const fakeFile = new Vinyl({
         contents: new Stream.Readable(),
@@ -100,7 +101,7 @@ ava('in stream mode must emit error', (t) => {
     t.throws(doWrite, /Streaming not supported/);
 });
 
-ava('stream should emit an error when svgo errors', (t) => {
+test('stream should emit an error when svgo errors', (t) => {
     const stream = svgmin();
     const fakeFile = new Vinyl({
         contents: Buffer.from('throw an error'),
@@ -108,5 +109,5 @@ ava('stream should emit an error when svgo errors', (t) => {
 
     stream.write(fakeFile);
 
-    stream.on('error', error => t.regex(error, /Error in parsing SVG/));
+    stream.on('error', (error) => t.regex(error, /Error in parsing SVG/));
 });
