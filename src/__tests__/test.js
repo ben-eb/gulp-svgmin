@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Stream from 'stream';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import test from 'ava';
 import Vinyl from 'vinyl';
 import svgmin from '../index.js';
@@ -17,14 +17,14 @@ const compressed = readFixture('output.svg');
 
 function makeTest(plugins, content, expected) {
     return new Promise((resolve) => {
-        const stream = svgmin({ plugins });
+        const stream = svgmin({plugins});
 
         stream.on('data', (data) => {
             expect(String(data.contents)).satisfy(expected);
             resolve();
         });
 
-        stream.write(new Vinyl({ contents: Buffer.from(content) }));
+        stream.write(new Vinyl({contents: Buffer.from(content)}));
     });
 }
 
@@ -53,14 +53,14 @@ test('should minify svg with svgo', () => {
 });
 
 test('should honor disabling plugins, such as keeping the doctype', () => {
-    const plugins = [{ removeDoctype: false }];
+    const plugins = [{removeDoctype: false}];
     return makeTest(plugins, raw, (content) => {
         return expect(content).to.contain('DOCTYPE');
     });
 });
 
 test('should allow disabling multiple plugins', () => {
-    const plugins = [{ removeDoctype: false }, { removeComments: false }];
+    const plugins = [{removeDoctype: false}, {removeComments: false}];
     return makeTest(plugins, raw, (content) => {
         return expect(content)
             .to.contain('DOCTYPE')
@@ -70,11 +70,11 @@ test('should allow disabling multiple plugins', () => {
 
 test('should allow per file options, such as keeping the doctype', () => {
     return new Promise((resolve) => {
-        const file = new Vinyl({ contents: Buffer.from(raw) });
+        const file = new Vinyl({contents: Buffer.from(raw)});
 
         const stream = svgmin((data) => {
             expect(data).to.equal(file);
-            return { plugins: [{ removeDoctype: false }] };
+            return {plugins: [{removeDoctype: false}]};
         });
 
         stream.on('data', (data) => {
