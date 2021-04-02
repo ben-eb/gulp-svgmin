@@ -46,6 +46,7 @@
     "xo": "^0.38.2"
   },
   "prettier": {
+    "bracketSpacing": false,
     "trailingComma": "es5",
     "tabWidth": 4,
     "semi": true,
