@@ -1,10 +1,9 @@
 # [gulp][gulp]-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.svg)][deps]
 
-> Minify SVG with [SVGO][orig].
+> A gulp plugin to minify SVG files with [SVGO][orig].
 
 *If you have any difficulties with the output of this plugin, please use the
 [SVGO tracker][bugs].*
-
 
 ## Install
 
@@ -14,71 +13,103 @@ With [npm](https://npmjs.org/package/gulp-svgmin) do:
 npm install gulp-svgmin
 ```
 
-
 ## Example
 
 ```js
-var gulp = require('gulp');
-var svgmin = require('gulp-svgmin');
+import { src, dest } from 'gulp';
+import svgmin from 'gulp-svgmin';
 
-gulp.task('default', function () {
-    return gulp.src('logo.svg')
-        .pipe(svgmin())
-        .pipe(gulp.dest('./out'));
-});
+const defaultTask = () =>
+  src('logo.svg')
+    .pipe(svgmin())
+    .pipe(dest('./out'));
+
+export default defaultTask;
 ```
 
+## Configuration file
 
-## Plugins
+By default, `gulp-svgmin` loads options from a `svgo.config.js` file in your project. See the [svgo’s configuration docs][config] for more info on how to write one.
 
-Optionally, you can customise the output by specifying the `plugins` option. You
-will need to provide the config in comma separated objects, like the example
-below. Note that you can either disable the plugin by setting it to false,
-or pass different options to change the default behaviour.
+You can control which directory `svgo` searches for `svgo.config.js` with the `cwd` option. Or you can use a different file name with the `configFile` option.
 
 ```js
-gulp.task('default', function () {
-    return gulp.src('logo.svg')
-        .pipe(svgmin({
-            plugins: [{
-                removeDoctype: false
-            }, {
-                removeComments: false
-            }, {
-                cleanupNumericValues: {
-                    floatPrecision: 2
-                }
-            }, {
-                convertColors: {
-                    names2hex: false,
-                    rgb2hex: false
-                }
-            }]
-        }))
-        .pipe(gulp.dest('./out'));
-});
+import { src, dest } from 'gulp';
+import svgmin from 'gulp-svgmin';
+
+const defaultTask = () =>
+  src('logo.svg')
+    .pipe(svgmin({
+      // Specify an absolute directory path to
+      // search for the config file.
+      cwd: '/users/admin/project/assets',
+      // This path is relative to process.cwd()
+      // or the 'cwd' option.
+      configFile: 'images/svg/config.js',
+    }))
+    .pipe(dest('./out'));
+
+export default defaultTask;
+```
+
+## Options
+
+Instead of using a config file, you can pass an object of svgo’s options to the `gulp-svgmin` plugin. You will need to provide the config in comma separated objects, like the example below.
+
+```js
+const defaultTask = () =>
+  src('logo.svg')
+    .pipe(svgmin({
+      // Ensures the best optimization.
+      multipass: true,
+      js2svg: {
+        // Beutifies the SVG output instead of
+        // stripping all white space.
+        pretty: true,
+        indent: 2,
+      },
+      // Alter the default list of plugins.
+      plugins: [
+        // You can enable a plugin with just its name.
+        'sortAttrs',
+        {
+          name: 'removeViewBox',
+          // Disable a plugin by setting active to false.
+          active: false,
+        },
+        {
+          name: 'cleanupIDs',
+          // Add plugin options.
+          params: {
+            minify: true,
+          }
+        },
+      ],
+    }))
+    .pipe(dest('./out'));
 ```
 
 You can view the [full list of plugins here][plugins].
 
-
-## Beautify
-
-You can also use `gulp-svgmin` to optimise your SVG but render a pretty output,
-instead of the default where all extraneous whitespace is removed:
+By default, the plugins list given to the gulp plugin will alter the default list of svgo plugins. Optionally, you can specify your plugins and set the `full` flag to `true` to indicate that your plugins list should not be merged with the default list of plugins.
 
 ```js
-gulp.task('pretty', function () {
-    return gulp.src('logo.svg')
-        .pipe(svgmin({
-            js2svg: {
-                pretty: true
-            }
-        }))
-        .pipe(gulp.dest('./out'))
-});
+const defaultTask = () =>
+  src('logo.svg')
+    .pipe(svgmin({
+      multipass: true,
+      // The plugins list is the full list of plugins
+      // to use. The default list is ignored.
+      full: true,
+      plugins: [
+        'removeDoctype',
+        'removeComments',
+        'sortAttrs',
+        // ...
+      ],
+    }))
+    .pipe(dest('./out'));
 ```
-
 
 ## Per-file options
 
@@ -87,35 +118,36 @@ returns `svgo` options. For example, if you need to prefix ids with filenames
 to make them unique before combining svgs with [gulp-svgstore](https://github.com/w0rm/gulp-svgstore):
 
 ```js
-gulp.task('default', function () {
-    return gulp.src('src/*.svg')
-        .pipe(svgmin(function getOptions (file) {
-            var prefix = path.basename(file.relative, path.extname(file.relative));
-            return {
-                plugins: [{
-                    cleanupIDs: {
-                        prefix: prefix + '-',
-                        minify: true
-                    }
-                }]
-            }
-        }))
-        .pipe(svgstore())
-        .pipe(gulp.dest('./dest'));
-});
+const defaultTask = () =>
+  src('src/*.svg')
+    .pipe(svgmin(function getOptions(file) {
+      const prefix = path.basename(
+        file.relative,
+        path.extname(file.relative)
+      );
+      return {
+        plugins: [
+          {
+            name: 'cleanupIDs',
+            parmas: {
+              prefix: prefix + '-',
+              minify: true,
+            },
+          },
+        ],
+      };
+    }))
+    .pipe(svgstore())
+    .pipe(dest('./dest'));
 ```
-
 
 ## Contributing
 
-Pull requests are welcome. If you add functionality, then please add unit tests
-to cover it.
-
+Pull requests are welcome. If you add functionality, then please add unit tests to cover it.
 
 ## License
 
-MIT © [Ben Briggs](http://beneb.info)
-
+MIT © [Ben Briggs](http://beneb.info) and [John Albin Wilkins](http://john.albin.net)
 
 [bugs]:    https://github.com/svg/svgo/issues
 [ci]:      https://travis-ci.org/ben-eb/gulp-svgmin
@@ -123,4 +155,5 @@ MIT © [Ben Briggs](http://beneb.info)
 [gulp]:    https://github.com/wearefractal/gulp
 [npm]:     http://badge.fury.io/js/gulp-svgmin
 [orig]:    https://github.com/svg/svgo
-[plugins]: https://github.com/svg/svgo/tree/master/plugins
+[config]:  https://github.com/svg/svgo#configuration
+[plugins]: https://github.com/svg/svgo#built-in-plugins
