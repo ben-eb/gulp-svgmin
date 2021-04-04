@@ -54,12 +54,21 @@
     "prettier": true
   },
   "ava": {
-    "require": "@babel/register"
+    "require": "@babel/register",
+    "verbose": true
   },
   "nyc": {
     "exclude": [
       "node_modules",
       "tests"
+    ],
+    "check-coverage": true,
+    "functions": 100,
+    "lines": 100,
+    "branches": 100,
+    "reporter": [
+      "text",
+      "html"
     ]
   }
 }
