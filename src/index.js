@@ -13,10 +13,6 @@ module.exports = function (options) {
     }
 
     stream._transform = function (file, encoding, cb) {
-        if (file.isNull()) {
-            return cb(null, file);
-        }
-
         if (file.isStream()) {
             return cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
         }
@@ -35,7 +31,12 @@ module.exports = function (options) {
                     cb(new PluginError(PLUGIN_NAME, error));
                 }
             );
+
+            return;
         }
+
+        // Handle all other cases, like file.isNull(), file.isDirectory().
+        return cb(null, file);
     };
 
     return stream;
