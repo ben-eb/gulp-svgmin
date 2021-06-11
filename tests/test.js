@@ -1,12 +1,14 @@
+import {fileURLToPath} from 'node:url';
 import test from 'ava';
-import {readFileSync} from 'fs';
-import path from 'path';
+import {readFileSync} from 'node:fs';
+import path from 'node:path';
 import PluginError from 'plugin-error';
-import {Readable} from 'stream';
+import {Readable} from 'node:stream';
 import Vinyl from 'vinyl';
 import svgmin from '../src/index.js';
 
 function readFixture(fileName) {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
     return readFileSync(path.resolve(__dirname, fileName), 'utf8').replace(
         /\n$/,
         ''

@@ -1,10 +1,10 @@
-import {Transform} from 'stream';
+import {Transform} from 'node:stream';
 import SVGOptim from 'svgo';
 import PluginError from 'plugin-error';
 
 const PLUGIN_NAME = 'gulp-svgmin';
 
-module.exports = function (options) {
+export default function min(options) {
     const stream = new Transform({objectMode: true});
     let svgo;
 
@@ -40,4 +40,4 @@ module.exports = function (options) {
     };
 
     return stream;
-};
+}
