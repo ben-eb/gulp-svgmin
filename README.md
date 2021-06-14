@@ -1,14 +1,18 @@
-# [gulp][gulp]-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.svg)][deps]
+# gulp-svgmin
 
-> Minify SVG with [SVGO][orig].
+[![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][travis-status]
+[![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm-status]
+[![Dependency Status](https://david-dm.org/ben-eb/gulp-svgmin.svg)][deps-status]
 
-*If you have any difficulties with the output of this plugin, please use the
-[SVGO tracker][bugs].*
+
+A [Gulp][gulp-url] wrapper for [SVGO][svgo-url].
+
+*If you have any difficulties with the output of this plugin, please use the [SVGO tracker][svgo-bugs].*
 
 
 ## Install
 
-With [npm](https://npmjs.org/package/gulp-svgmin) do:
+With [npm][npm-url] do:
 
 ```
 npm install gulp-svgmin
@@ -59,7 +63,7 @@ gulp.task('default', function () {
 });
 ```
 
-You can view the [full list of plugins here][plugins].
+You can view the [full list of plugins here][svgo-plugins].
 
 
 ## Beautify
@@ -84,7 +88,7 @@ gulp.task('pretty', function () {
 
 To have per-file options, pass a function, that receives `file` object and
 returns `svgo` options. For example, if you need to prefix ids with filenames
-to make them unique before combining svgs with [gulp-svgstore](https://github.com/w0rm/gulp-svgstore):
+to make them unique before combining svgs with [gulp-svgstore][gulp-svgostore]:
 
 ```js
 gulp.task('default', function () {
@@ -114,13 +118,15 @@ to cover it.
 
 ## License
 
-MIT © [Ben Briggs](http://beneb.info)
+MIT © [Ben Briggs](https://beneb.info)
 
 
-[bugs]:    https://github.com/svg/svgo/issues
-[ci]:      https://travis-ci.org/ben-eb/gulp-svgmin
-[deps]:    https://gemnasium.com/ben-eb/gulp-svgmin
-[gulp]:    https://github.com/wearefractal/gulp
-[npm]:     http://badge.fury.io/js/gulp-svgmin
-[orig]:    https://github.com/svg/svgo
-[plugins]: https://github.com/svg/svgo/tree/master/plugins
+[travis-status]:    https://travis-ci.org/ben-eb/gulp-svgmin
+[deps-status]:      https://david-dm.org/ben-eb/gulp-svgmin
+[npm-status]:       https://badge.fury.io/js/gulp-svgmin
+[npm-url]:          https://npmjs.org/package/gulp-svgmin
+[gulp-url]:         https://github.com/gulpjs/gulp
+[gulp-svgostore]:   https://github.com/w0rm/gulp-svgstore
+[svgo-url]:         https://github.com/svg/svgo
+[svgo-bugs]:        https://github.com/svg/svgo/issues
+[svgo-plugins]:     https://github.com/svg/svgo/tree/master/plugins
