@@ -1,13 +1,17 @@
-# [gulp][gulp]-svgmin [![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-svgmin.svg)][deps]
+# gulp-svgmin
 
-> A gulp plugin to minify SVG files with [SVGO][orig].
+[![Build Status](https://travis-ci.org/ben-eb/gulp-svgmin.svg?branch=master)][travis-status]
+[![NPM version](https://badge.fury.io/js/gulp-svgmin.svg)][npm-status]
+[![Dependency Status](https://david-dm.org/ben-eb/gulp-svgmin.svg)][deps-status]
 
-*If you have any difficulties with the output of this plugin, please use the
-[SVGO tracker][bugs].*
+> A [Gulp][gulp-url] plugin to minify SVG files with [svgo-url].
+
+*If you have any difficulties with the output of this plugin, please use the [SVGO tracker][svgo-bugs].*
+
 
 ## Install
 
-With [npm](https://npmjs.org/package/gulp-svgmin) do:
+With [npm][npm-url] do:
 
 ```
 npm install gulp-svgmin
@@ -29,7 +33,7 @@ export default defaultTask;
 
 ## Configuration file
 
-By default, `gulp-svgmin` loads options from a `svgo.config.js` file in your project. See the [svgo’s configuration docs][config] for more info on how to write one.
+By default, `gulp-svgmin` loads options from a `svgo.config.js` file in your project. See the [svgo’s configuration docs][svgo-config] for more info on how to write one.
 
 You can control which directory `svgo` searches for `svgo.config.js` with the `cwd` option. Or you can use a different file name with the `configFile` option.
 
@@ -89,7 +93,7 @@ const defaultTask = () =>
     .pipe(dest('./out'));
 ```
 
-You can view the [full list of plugins here][plugins].
+You can view the [full list of plugins here][svgo-plugins].
 
 By default, the plugins list given to the gulp plugin will alter the default list of svgo plugins. Optionally, you can specify your plugins and set the `full` flag to `true` to indicate that your plugins list should not be merged with the default list of plugins.
 
@@ -115,7 +119,7 @@ const defaultTask = () =>
 
 To have per-file options, pass a function, that receives `file` object and
 returns `svgo` options. For example, if you need to prefix ids with filenames
-to make them unique before combining svgs with [gulp-svgstore](https://github.com/w0rm/gulp-svgstore):
+to make them unique before combining svgs with [gulp-svgstore][gulp-svgostore]:
 
 ```js
 const defaultTask = () =>
@@ -147,13 +151,16 @@ Pull requests are welcome. If you add functionality, then please add unit tests 
 
 ## License
 
-MIT © [Ben Briggs](http://beneb.info) and [John Albin Wilkins](http://john.albin.net)
+MIT © [Ben Briggs](https://beneb.info)
 
-[bugs]:    https://github.com/svg/svgo/issues
-[ci]:      https://travis-ci.org/ben-eb/gulp-svgmin
-[deps]:    https://gemnasium.com/ben-eb/gulp-svgmin
-[gulp]:    https://github.com/wearefractal/gulp
-[npm]:     http://badge.fury.io/js/gulp-svgmin
-[orig]:    https://github.com/svg/svgo
-[config]:  https://github.com/svg/svgo#configuration
-[plugins]: https://github.com/svg/svgo#built-in-plugins
+
+[travis-status]:    https://travis-ci.org/ben-eb/gulp-svgmin
+[deps-status]:      https://david-dm.org/ben-eb/gulp-svgmin
+[npm-status]:       https://badge.fury.io/js/gulp-svgmin
+[npm-url]:          https://npmjs.org/package/gulp-svgmin
+[gulp-url]:         https://github.com/gulpjs/gulp
+[gulp-svgostore]:   https://github.com/w0rm/gulp-svgstore
+[svgo-url]:         https://github.com/svg/svgo
+[svgo-bugs]:        https://github.com/svg/svgo/issues
+[svgo-config]:      https://github.com/svg/svgo#configuration
+[svgo-plugins]:     https://github.com/svg/svgo#built-in-plugins
