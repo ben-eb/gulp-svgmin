@@ -7,10 +7,10 @@ import Vinyl from 'vinyl';
 import svgmin from '../src/index.js';
 
 function readFixture(fileName) {
-    return readFileSync(path.resolve(__dirname, fileName), 'utf8').replace(
-        /\n$/,
-        ''
-    );
+    return readFileSync(
+        path.resolve(__dirname, 'fixtures', fileName),
+        'utf8'
+    ).replace(/\n$/, '');
 }
 
 const inputSVG = readFixture('input.svg');
@@ -70,7 +70,7 @@ test('should minify svg with svgo', async (t) => {
 
 test('should honor disabling plugins, such as keeping the doctype', async (t) => {
     const result = await makeTest(
-        {plugins: [{removeDoctype: false}]},
+        {plugins: [{name: 'removeDoctype', active: false}]},
         inputSVG
     );
 
@@ -79,7 +79,12 @@ test('should honor disabling plugins, such as keeping the doctype', async (t) =>
 
 test('should allow disabling multiple plugins', async (t) => {
     const result = await makeTest(
-        {plugins: [{removeDoctype: false}, {removeComments: false}]},
+        {
+            plugins: [
+                {name: 'removeDoctype', active: false},
+                {name: 'removeComments', active: false},
+            ],
+        },
         inputSVG
     );
 
@@ -92,13 +97,13 @@ test('should allow per file options, such as keeping the doctype', async (t) => 
 
     const result = await makeTest((file) => {
         t.is(file, vinylFile);
-        return {plugins: [{removeDoctype: false}]};
+        return {plugins: [{name: 'removeDoctype', active: false}]};
     }, vinylFile);
 
     t.regex(result, /DOCTYPE/);
 });
 
-test('in stream mode must emit error', async (t) => {
+test('should emit an error when the Vinyl object is in stream mode', async (t) => {
     await t.throwsAsync(
         makeTest(
             null,
@@ -119,7 +124,7 @@ test('in stream mode must emit error', async (t) => {
     );
 });
 
-test('stream should emit an error when svgo errors', async (t) => {
+test('should emit an error when svgo throws an error', async (t) => {
     await t.throwsAsync(makeTest(null, 'file does not contain an SVG'), {
         instanceOf: PluginError,
         message: /Error in parsing SVG/,
