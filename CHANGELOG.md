@@ -1,8 +1,16 @@
+# 4.0.0
+
+* Bump svgo to v2.3.1. (thanks to @JohnAlbin)
+* Drop node 10 support.
+* Replace eslint-config-cssnano with xo.
+* Update babel to v7 and ava to v3 (thanks to @JohnAlbin)
+* Update dependencies.
+
 # 3.0.0
 
 * Bump svgo to v1.3.2.
 * Drop node 8 support.
-* Update dependencies
+* Update dependencies.
 
 # 2.2.0
 
@@ -11,7 +19,7 @@
 # 2.1.0
 
 * Bump svgo to v1.1.x.
-* Update babel-dependencies (but not yet to v7)
+* Update babel-dependencies (but not yet to v7).
 
 # 2.0.0
 
@@ -21,7 +29,7 @@
 
 # 1.2.4
 
-* Fixed a regression with the per-file options (thanks to @Odrin).
+* Fixed a regression with the per-file options. (thanks to @Odrin)
 
 # 1.2.3
 
@@ -37,7 +45,7 @@
 
 # 1.2.0
 
-* Adds the ability to pass per-file objects (thanks to @w0rm).
+* Adds the ability to pass per-file objects. (thanks to @w0rm)
 
 # 1.1.2
 
@@ -53,8 +61,8 @@
 
 # 1.0.0
 
-* svgmin takes an options object now, instead of a list of plugins
+* svgmin takes an options object now, instead of a list of plugins.
 
 # 0.4.8
 
-* Bump svgo to v0.5
+* Bump svgo to v0.5.
