@@ -27,6 +27,4 @@ jobs:
         run: |
           npm ci
           npm test
-      - name: Run coverage
-        run:
-          './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+          npm run coverage

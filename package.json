@@ -11,6 +11,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "xo src tests",
     "prepublishOnly": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist",
     "test": "nyc ava"
