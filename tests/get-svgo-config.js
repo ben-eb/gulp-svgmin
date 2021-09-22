@@ -1,15 +1,23 @@
 import test from 'ava';
 import path from 'path';
-import {extendDefaultPlugins} from 'svgo';
 import {getSvgoConfig} from '../src/get-svgo-config.js';
 
-const defaultPlugins = extendDefaultPlugins([]);
+const defaultPlugins = {
+    plugins: [
+        {
+            name: 'preset-default',
+            params: {
+                overrides: {},
+            },
+        },
+    ],
+};
 const fixturesDirectory = path.resolve(__dirname, 'fixtures');
 
 test('should return the default plugins list if given no options', async (t) => {
     const result = await getSvgoConfig();
 
-    const expected = {plugins: defaultPlugins};
+    const expected = defaultPlugins;
 
     t.deepEqual(result, expected);
 });
@@ -45,24 +53,16 @@ test('should not merge default plugins or look for a config file if given the "f
 test('should merge default plugins with given options', async (t) => {
     const result = await getSvgoConfig({
         multipass: true,
-        plugins: [
-            {
-                name: 'removeDoctype',
-                active: false,
-            },
-        ],
+        plugins: [{removeDoctype: false}],
     });
 
     const expected = {
         multipass: true,
         plugins: [
             {
-                name: 'removeDoctype',
-                active: false,
+                name: 'preset-default',
+                params: {overrides: {removeDoctype: false}},
             },
-            ...defaultPlugins.filter(
-                (plugin) => plugin.name !== 'removeDoctype'
-            ),
         ],
     };
 

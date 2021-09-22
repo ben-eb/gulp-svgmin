@@ -30,6 +30,7 @@ function makeTest(options, file, additionalSetup = () => {}) {
             // Save the transform's data to the Promise's result.
             transform.on('data', (data) => {
                 result = data.contents ? String(data.contents) : data.contents;
+                console.log(result);
             });
 
             // Write the test's file to the transform.
@@ -70,7 +71,7 @@ test('should minify svg with svgo', async (t) => {
 
 test('should honor disabling plugins, such as keeping the doctype', async (t) => {
     const result = await makeTest(
-        {plugins: [{name: 'removeDoctype', active: false}]},
+        {plugins: [{removeDoctype: false}]},
         inputSVG
     );
 
@@ -79,12 +80,7 @@ test('should honor disabling plugins, such as keeping the doctype', async (t) =>
 
 test('should allow disabling multiple plugins', async (t) => {
     const result = await makeTest(
-        {
-            plugins: [
-                {name: 'removeDoctype', active: false},
-                {name: 'removeComments', active: false},
-            ],
-        },
+        {plugins: [{removeDoctype: false}, {removeComments: false}]},
         inputSVG
     );
 
@@ -97,7 +93,7 @@ test('should allow per file options, such as keeping the doctype', async (t) => 
 
     const result = await makeTest((file) => {
         t.is(file, vinylFile);
-        return {plugins: [{name: 'removeDoctype', active: false}]};
+        return {plugins: [{removeDoctype: false}]};
     }, vinylFile);
 
     t.regex(result, /DOCTYPE/);
@@ -127,6 +123,6 @@ test('should emit an error when the Vinyl object is in stream mode', async (t) =
 test('should emit an error when svgo throws an error', async (t) => {
     await t.throwsAsync(makeTest(null, 'file does not contain an SVG'), {
         instanceOf: PluginError,
-        message: /Error in parsing SVG/,
+        message: /SvgoParserError/,
     });
 });
