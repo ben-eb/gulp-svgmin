@@ -8,9 +8,6 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-  workflow_run:
-    workflows: ["test"]
-    types: [completed] #requested
 
 jobs:
   test:
@@ -52,5 +49,5 @@ jobs:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
