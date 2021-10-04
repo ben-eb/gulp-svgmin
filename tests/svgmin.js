@@ -30,7 +30,6 @@ function makeTest(options, file, additionalSetup = () => {}) {
             // Save the transform's data to the Promise's result.
             transform.on('data', (data) => {
                 result = data.contents ? String(data.contents) : data.contents;
-                console.log(result);
             });
 
             // Write the test's file to the transform.
