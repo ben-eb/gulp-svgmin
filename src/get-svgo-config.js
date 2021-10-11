@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
-import {loadConfig, extendDefaultPlugins} from 'svgo';
+import {loadConfig} from 'svgo';
 
 // To prevent multiple scans of the disk for a svgo.config.js file, keep its
 // data in module scope.
@@ -82,8 +82,22 @@ export const getSvgoConfig = async function (
         // from the config file.
         config.plugins = extendLoadedPlugins(config.plugins, plugins);
     } else {
-        // Merge the default plugins list with options.plugins.
-        config.plugins = extendDefaultPlugins(plugins);
+        const pluginConfig = {
+            // Default provided per svgo docs in v2.4.0+
+            name: 'preset-default',
+            params: {
+                overrides: {},
+            },
+        };
+
+        // Following format assuming plugins settings are for built ins
+        for (const plugin of plugins) {
+            for (const [key, value] of Object.entries(plugin)) {
+                pluginConfig.params.overrides[key] = value;
+            }
+        }
+
+        config.plugins = [pluginConfig];
     }
 
     return config;
