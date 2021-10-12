@@ -1,3 +1,7 @@
+# 4.1.0
+
+* Bump svgo to v2.7.0. (thanks to @djphan)
+
 # 4.0.1
 
 * Move lodash.clonedeep into dependencies, fixes #120 (thanks to @donmahallem)
