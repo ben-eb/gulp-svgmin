@@ -1,3 +1,4 @@
+import process from 'node:process';
 import cloneDeep from 'lodash.clonedeep';
 import {loadConfig} from 'svgo';
 

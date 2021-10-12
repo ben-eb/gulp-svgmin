@@ -1,5 +1,5 @@
+import path from 'node:path';
 import test from 'ava';
-import path from 'path';
 import {getSvgoConfig} from '../src/get-svgo-config.js';
 
 const defaultPlugins = {
@@ -12,7 +12,8 @@ const defaultPlugins = {
         },
     ],
 };
-const fixturesDirectory = path.resolve(__dirname, 'fixtures');
+
+const fixturesDirectory = new URL('fixtures', import.meta.url);
 
 test('should return the default plugins list if given no options', async (t) => {
     const result = await getSvgoConfig();

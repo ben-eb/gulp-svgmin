@@ -1,8 +1,9 @@
+import {readFileSync} from 'node:fs';
+import {Readable} from 'node:stream';
+import Buffer from 'node:buffer';
+import path from 'node:path';
 import test from 'ava';
-import {readFileSync} from 'fs';
-import path from 'path';
 import PluginError from 'plugin-error';
-import {Readable} from 'stream';
 import Vinyl from 'vinyl';
 import svgmin from '../src/index.js';
 

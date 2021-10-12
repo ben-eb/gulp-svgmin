@@ -1,4 +1,4 @@
-module.exports = {
+const simpleconfig = {
     customOption: 'tests/fixtures/config/simple.config.js',
     plugins: [
         {
@@ -8,3 +8,5 @@ module.exports = {
         'removeMetadata',
     ],
 };
+
+export default simpleconfig;
