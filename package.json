@@ -37,14 +37,14 @@
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.18.9",
-    "ava": "^3.15.0",
+    "ava": "^5.1.1",
     "coveralls": "^3.1.1",
     "cross-env": "^7.0.3",
     "del-cli": "^4.0.1",
     "nyc": "^15.1.0",
     "prettier": "^2.8.3",
     "vinyl": "^2.2.1",
-    "xo": "^0.38.2"
+    "xo": "^0.53.1"
   },
   "prettier": {
     "bracketSpacing": false,
