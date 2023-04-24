@@ -44,7 +44,7 @@
     "nyc": "^15.1.0",
     "prettier": "^2.8.3",
     "vinyl": "^2.2.1",
-    "xo": "^0.38.2"
+    "xo": "^0.54.1"
   },
   "prettier": {
     "bracketSpacing": false,
