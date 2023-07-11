@@ -198,7 +198,7 @@ test('should throw an error if the config file does not exist', async (t) => {
         }),
         {
             instanceOf: Error,
-            code: 'MODULE_NOT_FOUND',
+            code: 'ERR_MODULE_NOT_FOUND',
         }
     );
 });

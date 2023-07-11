@@ -122,6 +122,6 @@ test('should emit an error when the Vinyl object is in stream mode', async (t) =
 test('should emit an error when svgo throws an error', async (t) => {
     await t.throwsAsync(makeTest(null, 'file does not contain an SVG'), {
         instanceOf: PluginError,
-        message: /SvgoParserError/,
+        name: 'SvgoParserError',
     });
 });

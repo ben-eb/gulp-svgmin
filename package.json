@@ -30,7 +30,7 @@
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
     "plugin-error": "^1.0.1",
-    "svgo": "^2.7.0"
+    "svgo": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
